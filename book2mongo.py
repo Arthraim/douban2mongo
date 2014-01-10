@@ -18,7 +18,7 @@ for filename in os.listdir("."):
             link = a_tag.get('href').encode('UTF-8')
             title = a_tag.get('title').encode('UTF-8')
             # <div class="pub">蒋峰 / 中信出版社 / 2011-4 / 29.00元</div>
-            pub = item.find_all("div", "pub")[0].string.strip().encode('UTF-8')
+            pub = item.find("div", "pub").string.strip().encode('UTF-8')
             # <div class="short-note">
             #     <div>
             #         <span class="rating4-t"></span>
@@ -27,7 +27,7 @@ for filename in os.listdir("."):
             #     </div>
             #     <p class="comment">blabla</p>
             # </div>
-            short_note = item.find_all("div", "short-note")[0]
+            short_note = item.find("div", "short-note")
             spans = short_note.div.find_all("span")
             rating = spans[0]['class'][0].replace("rating","").replace("-t","")
             date = spans[1].string.encode("UTF-8").replace("读过","").strip()
