@@ -1,6 +1,10 @@
 # coding= utf-8
 from bs4 import BeautifulSoup
 import codecs
+from mongoengine import *
+from book import Book
+
+connect('mydouban')
 
 import os
 os.chdir("book")
@@ -30,8 +34,19 @@ for filename in os.listdir("."):
             if len(spans) > 2:
                 tags = spans[2].string.encode("UTF-8").replace("标签:","").strip().split(" ")
             comment = short_note.p.string.encode("UTF-8").strip()
+
             print title, pub, link
             print rating, date, tags
             print comment
             print ""
+
+            book = Book()
+            book.title = title
+            book.pub = pub
+            book.link = link
+            book.rating = rating
+            book.date = date
+            book.tags = tags
+            book.comment = comment
+            book.save()
 
