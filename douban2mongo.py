@@ -2,9 +2,10 @@
 from bs4 import BeautifulSoup
 import codecs
 
-# html_file = open('book/0', 'w')
-for page in range(0, 61, 15):
-    with codecs.open("book/" + str(page), "r", "utf-8") as html_file:
+import os
+os.chdir("book")
+for filename in os.listdir("."):
+    with codecs.open(filename, "r", "utf-8") as html_file:
         soup = BeautifulSoup(html_file.read())
 
         for item in soup.find_all("li", "subject-item"):
